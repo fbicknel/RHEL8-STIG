@@ -1,5 +1,7 @@
 ---
 
+ansible_user: autobot
+
 rhel8stig_cat1_patch: true
 rhel8stig_cat2_patch: true
 rhel8stig_cat3_patch: true
