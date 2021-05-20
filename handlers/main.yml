@@ -16,6 +16,8 @@
   service:
       name: sssd
       state: restarted
+  when:
+      - rhel8stig_sssd_conf.stdout | length > 0
 
 - name: restart snmpd
   service:
@@ -48,6 +50,9 @@
       src: "{{ rhel8stig_grub_cfg_path | dirname }}/{{ item }}"
       dest: "{{ rhel8stig_grub_cfg_path_invalid | dirname }}/{{ item }}"
       remote_src: yes
+      owner: root
+      group: root
+      mode: 0755
   with_items:
       - grub.cfg
       - user.cfg
@@ -123,3 +128,4 @@
   shell: sleep 3; reboot
   async: 15
   poll: 0
+  when: not rhel8stig_skip_reboot
